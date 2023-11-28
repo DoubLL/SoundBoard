@@ -27,8 +27,8 @@ namespace SoundBoardForms
             for (int i = 0; i < buttonGrid.RowCount; i++)
                 for (int j = 0; j < buttonGrid.ColumnCount; j++)
                 {
-                    var index = SettingsProvider.Get(i * buttonGrid.ColumnCount + j);
-                    buttonGrid.Controls.Add(new GridButton(index));
+                    var index = i * buttonGrid.ColumnCount + j;
+                    buttonGrid.Controls.Add(new GridButton(index, i, j));
                 }
         }
         private void AdjustSize(ComboBox box)

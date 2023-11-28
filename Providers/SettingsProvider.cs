@@ -33,6 +33,11 @@ namespace SoundBoardForms.Providers
             Buttons.Add(id, button);
             return button;
         }
+        public static void Delete(int id)
+        {
+            if (!Buttons.ContainsKey(id)) throw new ArgumentOutOfRangeException(nameof(id));
+            Buttons.Remove(id);
+        }
         public static void Save()
         {
 
@@ -44,24 +49,27 @@ namespace SoundBoardForms.Providers
             {
                 Text = "Button 1",
                 Path = "",
-                Volume = 100,
-                Color = Color.White,
+                Volume = 50,
+                BackgroundColor = Color.Black,
+                TextColor = Color.White,
                 ImagePath = ""
             });
             Buttons.Add(1, new SoundSettings
             {
                 Text = "Button 2",
                 Path = "",
-                Volume = 100,
-                Color = Color.White,
-                ImagePath = ""
+                Volume = 25,
+                BackgroundColor = Color.White,
+                TextColor = Color.Black,
+                ImagePath = "D:\\Daten\\Pictures\\emoji.png"
             });
             Buttons.Add(2, new SoundSettings
             {
-                Text = "Button 3",
+                Text = "",
                 Path = "",
                 Volume = 100,
-                Color = Color.White,
+                BackgroundColor = Color.White,
+                TextColor = Color.Black,
                 ImagePath = ""
             });
             Buttons.Add(10, new SoundSettings
@@ -69,7 +77,8 @@ namespace SoundBoardForms.Providers
                 Text = "Button 4",
                 Path = "",
                 Volume = 100,
-                Color = Color.White,
+                BackgroundColor = Color.DarkRed,
+                TextColor = Color.White,
                 ImagePath = ""
             });
             

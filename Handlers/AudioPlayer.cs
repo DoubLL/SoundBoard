@@ -12,11 +12,11 @@ namespace SoundBoardForms.Handlers
         {
 
         }
-        static void Play()
+        public static void Play(string path, float volume, int start, int end)
         {
 
         }
-        static void Stop()
+        public static void Stop()
         {
 
         }

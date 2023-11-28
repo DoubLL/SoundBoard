@@ -20,7 +20,7 @@ namespace SoundBoardForms.Providers
                 var ports = searcher.Get().Cast<ManagementBaseObject>().ToList().Select(p => p["Caption"].ToString());
                 foreach (var portname in portnames)
                 {
-                   _availablePorts.Add(ports.FirstOrDefault(s => s.Contains(portname)) ?? "Unknown Device", portname);
+                   _availablePorts.Add(ports.FirstOrDefault(s => s != null && s.Contains(portname)) ?? "Unknown Device", portname);
                 }
             }
         }
