@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using System.Xml.Linq;
 
 namespace SoundBoardForms.Providers
 {
@@ -6,26 +7,18 @@ namespace SoundBoardForms.Providers
     {
         static OutputProvider()
         {
-            for (int n = -1; n < WaveOut.DeviceCount; n++)
-            {
-                var caps = WaveOut.GetCapabilities(n);
-                UnorderedDevices.Add(caps);
-            }
-            Devices = UnorderedDevices.ToList();
+            Devices = DirectSoundOut.Devices.OrderBy(_ => _.Description).ToList();
+            index = Math.Max(Devices.FindIndex(item => item.Description == SettingsProvider.GlobalSettings.Output), 0);
         }
-        private static List<WaveOutCapabilities> UnorderedDevices { get; } = new();
         private static int index = 0;
-        private static List<WaveOutCapabilities> Devices { get; } = new();
+        private static List<DirectSoundDeviceInfo> Devices { get; } = [];
+        public static int CurrentIndex => index;
+        public static DirectSoundDeviceInfo CurrentDevice => Devices[index];
+        public static IEnumerable<string> DeviceNames => Devices.Select(d => d.Description);
+        public static void SetDevice(string name)
+        {
+            index = Math.Max(Devices.FindIndex(item => item.Description == name),0);
+        }
 
-        public static WaveOutCapabilities CurrentDevice => Devices[index];
-        public static IEnumerable<string> DeviceNames => Devices.Select(d => d.ProductName);
-        public static void SetDevice(int i)
-        {
-            index = Math.Clamp(i, 0, Devices.Count - 1);
-        }
-        public static int DeviceIndex
-        {
-            get => UnorderedDevices.IndexOf(UnorderedDevices.Find(item => item.NameGuid == CurrentDevice.NameGuid));
-        }
     }
 }

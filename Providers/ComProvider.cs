@@ -24,5 +24,6 @@ namespace SoundBoardForms.Providers
                 }
             }
         }
+        public static string Current => _availablePorts[SettingsProvider.GlobalSettings.ComPort];
     }
 }

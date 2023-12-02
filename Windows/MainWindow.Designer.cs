@@ -1,4 +1,6 @@
-﻿namespace SoundBoardForms
+﻿using SoundBoardForms.Providers;
+
+namespace SoundBoardForms
 {
     partial class MainWindow
     {
@@ -175,6 +177,7 @@
             selectComport.Name = "selectComport";
             selectComport.Size = new Size(151, 28);
             selectComport.TabIndex = 16;
+            selectComport.SelectedIndexChanged += selectComport_SelectedIndexChanged;
             // 
             // selectOutput
             // 
@@ -183,6 +186,7 @@
             selectOutput.Name = "selectOutput";
             selectOutput.Size = new Size(151, 28);
             selectOutput.TabIndex = 15;
+            selectOutput.SelectedIndexChanged += selectOutput_SelectedIndexChanged;
             // 
             // label1
             // 

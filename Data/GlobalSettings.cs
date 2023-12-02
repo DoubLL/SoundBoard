@@ -4,9 +4,9 @@ namespace SoundBoardForms.Data
 {
     internal class GlobalSettings
     {
-        public int Volume { get; set; } = 20;
-        public int ComPort { get; set; } = 0;
-        public int Output { get; set; } = 0;
+        public int Volume { get; set; } = 100;
+        public string ComPort { get; set; } = "";
+        public string Output { get; set; } = "";
         public int GridX
         {
             get => Dimensions.GridX;
