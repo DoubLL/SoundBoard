@@ -1,4 +1,6 @@
-﻿namespace SoundBoardForms.Data
+﻿using Newtonsoft.Json;
+
+namespace SoundBoardForms.Data
 {
     internal class GlobalSettings
     {
@@ -7,50 +9,45 @@
         public int Output { get; set; } = 0;
         public int GridX
         {
-            get
-            {
-                if (!Dimentions.TryGetValue(Mode, out var t))
-                {
-                    t = new(defaultX, defaultY);
-                    Dimentions.Add(Mode, t);
-                }
-                return t.Item1;
-            }
-            set
-            {
-                if (Dimentions.TryGetValue(Mode, out var t))
-                {
-                    Dimentions[Mode] = new Tuple<int, int>(value, t.Item2);
-                }
-                else
-                    Dimentions.Add(Mode, new Tuple<int, int>(value, defaultY));
-            }
+            get => Dimensions.GridX;
+            set => Dimensions.GridX = value;
         }
         public int GridY
         {
-            get
-            {
-                if (!Dimentions.TryGetValue(Mode, out var t))
-                {
-                    t = new(defaultX, defaultY);
-                    Dimentions.Add(Mode, t);
-                }
-                return t.Item2;
-            }
-            set
-            {
-                if (Dimentions.TryGetValue(Mode, out var t))
-                {
-                    Dimentions[Mode] = new Tuple<int, int>(t.Item1, value);
-                }
-                else
-                    Dimentions.Add(Mode, new Tuple<int, int>(defaultX, value));
-            }
+            get => Dimensions.GridY;
+            set => Dimensions.GridY = value;
+        }
+        public int WindowX
+        {
+            get => Dimensions.WindowX;
+            set => Dimensions.WindowX = value;
+        }
+        public int WindowY
+        {
+            get => Dimensions.WindowY;
+            set => Dimensions.WindowY = value;
         }
         public int Mode { get; set; } = 1;
+        [JsonProperty]
+        private readonly Dictionary<int, Dimension> AllDimensions = new();
+        private Dimension Dimensions { get
+            {
+                AllDimensions.TryGetValue(Mode, out var dim);
+                if (dim == null)
+                {
+                    dim = new Dimension();
+                    AllDimensions.Add(Mode, dim);
+                }
+                return dim;
+            }
+        }
 
-        private readonly Dictionary<int, Tuple<int, int>> Dimentions = [];
-        private const int defaultX = 6;
-        private const int defaultY = 10;
+        private class Dimension
+        {
+            public int WindowX { get; set; } = 650;
+            public int WindowY { get; set; } = 1130;
+            public int GridX { get; set; } = 6;
+            public int GridY { get; set; } = 10;
+        }
     }
 }

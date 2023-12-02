@@ -1,9 +1,11 @@
-﻿using SoundBoardForms.Data;
+﻿using Newtonsoft.Json;
+using SoundBoardForms.Data;
 
 namespace SoundBoardForms.Providers
 {
     internal static class SettingsProvider
     {
+        const string settingsPath = "settings.json";
         private static Dictionary<int, Dictionary<int, SoundSettings>> Modes { get; set; } = new();
         private static Dictionary<int, SoundSettings> Buttons {  get
             {
@@ -40,48 +42,24 @@ namespace SoundBoardForms.Providers
         }
         public static void Save()
         {
-
+            var serializer = new JsonSerializer();
+            using var file = File.CreateText(settingsPath);
+            serializer.Serialize(file, new SaveModel { G = GlobalSettings, M = Modes});
         }
         public static void Load()
         {
-            Buttons.Clear();
-            Buttons.Add(0, new SoundSettings
-            {
-                Text = "Button 1",
-                Path = "",
-                Volume = 50,
-                BackgroundColor = Color.Black,
-                TextColor = Color.White,
-                ImagePath = ""
-            });
-            Buttons.Add(1, new SoundSettings
-            {
-                Text = "Button 2",
-                Path = "",
-                Volume = 25,
-                BackgroundColor = Color.White,
-                TextColor = Color.Black,
-                ImagePath = "D:\\Daten\\Pictures\\emoji.png"
-            });
-            Buttons.Add(2, new SoundSettings
-            {
-                Text = "",
-                Path = "",
-                Volume = 100,
-                BackgroundColor = Color.White,
-                TextColor = Color.Black,
-                ImagePath = ""
-            });
-            Buttons.Add(10, new SoundSettings
-            {
-                Text = "Button 4",
-                Path = "",
-                Volume = 100,
-                BackgroundColor = Color.DarkRed,
-                TextColor = Color.White,
-                ImagePath = ""
-            });
-            
+            if (!File.Exists(settingsPath)) return;
+            var serializer = new JsonSerializer();
+            using var file = File.OpenText(settingsPath);
+            using var jsonReader = new JsonTextReader(file);
+            var settings = serializer.Deserialize(jsonReader, typeof(SaveModel)) as SaveModel;
+            GlobalSettings = settings?.G ?? new();
+            Modes = settings?.M ?? [];
+        }
+        private class SaveModel
+        {
+            public GlobalSettings? G { get; set; }
+            public Dictionary<int, Dictionary<int, SoundSettings>>? M { get; set; }
         }
     }
 }

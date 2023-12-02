@@ -316,7 +316,6 @@
             ShowInTaskbar = false;
             Text = "Sound Settings";
             TopMost = true;
-            Load += ButtonConfigWindow_Load;
             panelSound.ResumeLayout(false);
             panelSound.PerformLayout();
             panelButtonProps.ResumeLayout(false);

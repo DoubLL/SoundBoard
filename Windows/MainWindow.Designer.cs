@@ -55,7 +55,7 @@
             // statusStrip1
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
-            statusStrip1.Location = new Point(0, 1062);
+            statusStrip1.Location = new Point(0, 1061);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(632, 22);
             statusStrip1.TabIndex = 1;
@@ -70,7 +70,7 @@
             buttonGrid.Name = "buttonGrid";
             buttonGrid.RowCount = 1;
             buttonGrid.RowStyles.Add(new RowStyle());
-            buttonGrid.Size = new Size(632, 1024);
+            buttonGrid.Size = new Size(632, 1023);
             buttonGrid.TabIndex = 12;
             // 
             // topPanel
@@ -105,7 +105,7 @@
             // 
             // inputProfile
             // 
-            inputProfile.Location = new Point(580, 6);
+            inputProfile.Location = new Point(577, 6);
             inputProfile.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
             inputProfile.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             inputProfile.Name = "inputProfile";
@@ -116,7 +116,7 @@
             // 
             // inputGridY
             // 
-            inputGridY.Location = new Point(495, 6);
+            inputGridY.Location = new Point(490, 6);
             inputGridY.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             inputGridY.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             inputGridY.Name = "inputGridY";
@@ -128,7 +128,7 @@
             // iconGrid
             // 
             iconGrid.Image = Properties.Resources.GRID;
-            iconGrid.Location = new Point(388, 5);
+            iconGrid.Location = new Point(387, 5);
             iconGrid.Name = "iconGrid";
             iconGrid.Size = new Size(28, 28);
             iconGrid.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -137,7 +137,7 @@
             // 
             // inputGridX
             // 
-            inputGridX.Location = new Point(433, 6);
+            inputGridX.Location = new Point(430, 6);
             inputGridX.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             inputGridX.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             inputGridX.Name = "inputGridX";
@@ -150,7 +150,7 @@
             // 
             iconOutput.BackgroundImageLayout = ImageLayout.Zoom;
             iconOutput.Image = Properties.Resources.OUT;
-            iconOutput.Location = new Point(197, 5);
+            iconOutput.Location = new Point(198, 5);
             iconOutput.Name = "iconOutput";
             iconOutput.Size = new Size(28, 28);
             iconOutput.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -161,7 +161,7 @@
             // 
             IconComport.BackgroundImageLayout = ImageLayout.Stretch;
             IconComport.Image = Properties.Resources.COM;
-            IconComport.Location = new Point(6, 5);
+            IconComport.Location = new Point(10, 5);
             IconComport.Name = "IconComport";
             IconComport.Size = new Size(28, 28);
             IconComport.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -179,7 +179,7 @@
             // selectOutput
             // 
             selectOutput.FormattingEnabled = true;
-            selectOutput.Location = new Point(231, 5);
+            selectOutput.Location = new Point(228, 5);
             selectOutput.Name = "selectOutput";
             selectOutput.Size = new Size(151, 28);
             selectOutput.TabIndex = 15;
@@ -187,7 +187,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(418, 12);
+            label1.Location = new Point(415, 12);
             label1.Name = "label1";
             label1.Size = new Size(16, 20);
             label1.TabIndex = 21;
@@ -196,7 +196,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(478, 12);
+            label2.Location = new Point(475, 12);
             label2.Name = "label2";
             label2.Size = new Size(16, 20);
             label2.TabIndex = 25;
@@ -206,7 +206,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(632, 1084);
+            ClientSize = new Size(632, 1083);
             Controls.Add(buttonGrid);
             Controls.Add(topPanel);
             Controls.Add(statusStrip1);
@@ -214,6 +214,7 @@
             Name = "MainWindow";
             Text = "Soundboard";
             Load += MainWindowLoad;
+            SizeChanged += MainWindow_SizeChanged;
             topPanel.ResumeLayout(false);
             topPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)imageProfile).EndInit();

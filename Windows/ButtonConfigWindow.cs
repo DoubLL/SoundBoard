@@ -6,44 +6,38 @@ namespace SoundBoardForms.Windows
     {
         public event EventHandler Saved = delegate { };
         public event EventHandler Deleted = delegate { };
-        public SoundSettings? Settings { get; set; }
+        public SoundSettings? Settings { get; private set; }
 
         private readonly int i;
 
         public ButtonConfigWindow(SoundSettings? settings, int i, int x, int y)
         {
-            Settings = settings;
             this.i = i;
             InitializeComponent();
-            Text = $"Button {i + 1} Settings (x: {x + 1}, y: {y + 1})";
-        }
-
-        private void ButtonConfigWindow_Load(object sender, EventArgs e)
-        {
-            Settings ??= new();
-            textFile.Text = Settings?.Path;
-            if (!string.IsNullOrEmpty(Settings?.Path))
+            settings ??= new SoundSettings();
+            textFile.Text = settings?.Path;
+            if (!string.IsNullOrEmpty(settings?.Path))
             {
-                textText.PlaceholderText = Settings?.Path.Split('\\')[^1];
+                textText.PlaceholderText = settings?.Path.Split('\\')[^1];
             }
-            textText.Text = Settings?.Text;
-            textPicture.Text = Settings?.ImagePath;
-            pictureBox1.BackColor = Settings?.BackgroundColor ?? default;
-            panelColor.BackColor = Settings?.BackgroundColor ?? default;
-            panelColor.ForeColor = Settings?.TextColor ?? default;
-            volumeSlider.Volume = Settings?.Volume ?? default;
-            if (string.IsNullOrEmpty(Settings?.ImagePath))
-                pictureBox1.ImageLocation = Settings?.ImagePath;
+            textText.Text = settings?.Text;
+            textPicture.Text = settings?.ImagePath;
+            pictureBox1.BackColor = settings?.BackgroundColor ?? default;
+            panelColor.BackColor = settings?.BackgroundColor ?? default;
+            panelColor.ForeColor = settings?.TextColor ?? default;
+            volumeSlider.Volume = settings?.Volume ?? default;
+            if (string.IsNullOrEmpty(settings?.ImagePath))
+                pictureBox1.ImageLocation = settings?.ImagePath;
+            Text = $"Button {i + 1} settings (x: {x + 1}, y: {y + 1})";
         }
 
         private void volumeSlider_VolumeChanged(object sender, EventArgs e)
         {
             labelText.Text = volumeSlider.Volume.ToString();
         }
-
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            Settings = Settings ?? SettingsProvider.Add(i);
+            Settings = SettingsProvider.Get(i) ?? SettingsProvider.Add(i);
             Settings.Path = textFile.Text;
             Settings.Text = textText.Text;
             Settings.ImagePath = textPicture.Text;
@@ -58,13 +52,11 @@ namespace SoundBoardForms.Windows
         {
             Close();
         }
-
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             Deleted.Invoke(this, e);
             Close();
         }
-
         private void buttonFile_Click(object sender, EventArgs e)
         {
             using OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -79,7 +71,6 @@ namespace SoundBoardForms.Windows
                 textText.PlaceholderText = openFileDialog.FileName.Split('\\')[^1];
             }
         }
-
         private void buttonPicture_Click(object sender, EventArgs e)
         {
             using OpenFileDialog openFileDialog = new();
@@ -95,7 +86,6 @@ namespace SoundBoardForms.Windows
                     pictureBox1.ImageLocation = openFileDialog.FileName;
             }
         }
-
         private void buttonColor_Click(object sender, EventArgs e)
         {
             using ColorDialog colorDialog = new();
@@ -106,7 +96,6 @@ namespace SoundBoardForms.Windows
                 panelColor.BackColor = colorDialog.Color;
             }
         }
-
         private void buttonTextColor_Click(object sender, EventArgs e)
         {
             using ColorDialog colorDialog = new();

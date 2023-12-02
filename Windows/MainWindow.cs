@@ -20,6 +20,9 @@ namespace SoundBoardForms
             buttonGrid.ColumnCount = SettingsProvider.GlobalSettings.GridX;
             inputGridY.Value = SettingsProvider.GlobalSettings.GridY;
             buttonGrid.RowCount = SettingsProvider.GlobalSettings.GridY;
+            Size = new Size(
+                SettingsProvider.GlobalSettings.WindowX,
+                SettingsProvider.GlobalSettings.WindowY);
         }
         private void RedrawGrid()
         {
@@ -73,7 +76,16 @@ namespace SoundBoardForms
             SettingsProvider.GlobalSettings.Mode = (int)inputProfile.Value;
             inputGridX.Value = SettingsProvider.GlobalSettings.GridX;
             inputGridY.Value = SettingsProvider.GlobalSettings.GridY;
+            Size = new Size(
+                SettingsProvider.GlobalSettings.WindowX,
+                SettingsProvider.GlobalSettings.WindowY);
             RedrawGrid();
+        }
+
+        private void MainWindow_SizeChanged(object sender, EventArgs e)
+        {
+            SettingsProvider.GlobalSettings.WindowX = Size.Width;
+            SettingsProvider.GlobalSettings.WindowY = Size.Height;
         }
     }
 }
