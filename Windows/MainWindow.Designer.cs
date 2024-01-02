@@ -169,6 +169,7 @@ namespace SoundBoardForms
             IconComport.SizeMode = PictureBoxSizeMode.StretchImage;
             IconComport.TabIndex = 17;
             IconComport.TabStop = false;
+            IconComport.Click += IconComport_Click;
             // 
             // selectComport
             // 

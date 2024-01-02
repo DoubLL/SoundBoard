@@ -1,5 +1,7 @@
 using SoundBoardForms.Components;
 using SoundBoardForms.Providers;
+using System;
+using System.Windows.Forms;
 
 namespace SoundBoardForms
 {
@@ -25,10 +27,29 @@ namespace SoundBoardForms
                 SettingsProvider.GlobalSettings.WindowX,
                 SettingsProvider.GlobalSettings.WindowY);
             selectComport.SelectedIndex =
-                Math.Max(selectComport.FindStringExact(SettingsProvider.GlobalSettings.ComPort),0);
+                Math.Max(selectComport.FindStringExact(SettingsProvider.GlobalSettings.ComPort), 0);
             selectOutput.SelectedIndex =
-                Math.Max(selectOutput.FindStringExact(SettingsProvider.GlobalSettings.Output),0);
+                Math.Max(selectOutput.FindStringExact(SettingsProvider.GlobalSettings.Output), 0);
             loaded = true;
+
+            ComProvider.ButtonPressed += (sender, index) =>
+            {
+                try
+                {
+                    var button = buttonGrid.Controls[index] as GridButton;
+                    if (button != null)
+                    {
+                        button.Play();
+                    }
+                }
+                catch { }
+            };
+            ComProvider.StatusChanged += (sender, status) =>
+            {
+                if (status == ComStatus.Running)
+                    IconComport.BackColor = Color.Green;
+                else IconComport.BackColor = Color.Empty;
+            };
         }
         private void RedrawGrid()
         {
@@ -93,8 +114,11 @@ namespace SoundBoardForms
         private void selectComport_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (loaded)
-                SettingsProvider.GlobalSettings.ComPort =
-                    (string)(selectComport.Items[selectComport.SelectedIndex] ?? "");
+            {
+                var name = (string)(selectComport.Items[selectComport.SelectedIndex] ?? "");
+                SettingsProvider.GlobalSettings.ComPort = name;
+                ComProvider.SetComPort(name);
+            }
         }
         private void selectOutput_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -104,6 +128,12 @@ namespace SoundBoardForms
                 SettingsProvider.GlobalSettings.Output = name;
                 OutputProvider.SetDevice(name);
             }
+        }
+        private void IconComport_Click(object sender, EventArgs e)
+        {
+            if (((MouseEventArgs)e).Button == MouseButtons.Left)
+                ComProvider.Connect();
+            else ComProvider.RefreshComPorts();
         }
     }
 }

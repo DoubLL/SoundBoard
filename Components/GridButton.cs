@@ -23,13 +23,17 @@ namespace SoundBoardForms.Components
             UpdateButton();
             BackgroundImageLayout = ImageLayout.Zoom;
         }
+        public void Play()
+        {
+            if (Settings == null) return;
+            AudioPlayer.Play(Settings.Path, Settings.Volume, Settings.Start, Settings.End);
+        }
 
         public void OnMouseUp(object sender, MouseEventArgs eventArgs)
         {
             if (eventArgs.Button == MouseButtons.Left)
             {
-                if (Settings == null) return;
-                AudioPlayer.Play(Settings.Path, Settings.Volume, Settings.Start, Settings.End);
+                Play();
             }
             else
             {
