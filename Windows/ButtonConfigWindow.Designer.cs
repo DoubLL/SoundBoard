@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             panelSound = new Panel();
+            button1 = new Button();
+            numberEnd = new NumericUpDown();
+            numberStart = new NumericUpDown();
+            label2 = new Label();
+            label1 = new Label();
             textFile = new TextBox();
             buttonFile = new Button();
             volumeSlider = new NAudio.Gui.VolumeSlider();
@@ -52,6 +57,8 @@
             buttonCancel = new Button();
             buttonOk = new Button();
             panelSound.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numberEnd).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numberStart).BeginInit();
             panelButtonProps.SuspendLayout();
             panelColor.SuspendLayout();
             panelText.SuspendLayout();
@@ -63,6 +70,11 @@
             // 
             // panelSound
             // 
+            panelSound.Controls.Add(button1);
+            panelSound.Controls.Add(numberEnd);
+            panelSound.Controls.Add(numberStart);
+            panelSound.Controls.Add(label2);
+            panelSound.Controls.Add(label1);
             panelSound.Controls.Add(textFile);
             panelSound.Controls.Add(buttonFile);
             panelSound.Controls.Add(volumeSlider);
@@ -71,8 +83,54 @@
             panelSound.Margin = new Padding(3, 3, 3, 30);
             panelSound.Name = "panelSound";
             panelSound.Padding = new Padding(3);
-            panelSound.Size = new Size(720, 57);
+            panelSound.Size = new Size(720, 100);
             panelSound.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(354, 35);
+            button1.Name = "button1";
+            button1.Size = new Size(70, 27);
+            button1.TabIndex = 7;
+            button1.Text = "Play";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // numberEnd
+            // 
+            numberEnd.Location = new Point(258, 35);
+            numberEnd.Maximum = new decimal(new int[] { 1410065407, 2, 0, 0 });
+            numberEnd.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
+            numberEnd.Name = "numberEnd";
+            numberEnd.Size = new Size(90, 27);
+            numberEnd.TabIndex = 6;
+            // 
+            // numberStart
+            // 
+            numberStart.Location = new Point(89, 35);
+            numberStart.Maximum = new decimal(new int[] { 1410065407, 2, 0, 0 });
+            numberStart.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
+            numberStart.Name = "numberStart";
+            numberStart.Size = new Size(90, 27);
+            numberStart.TabIndex = 5;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(185, 37);
+            label2.Name = "label2";
+            label2.Size = new Size(67, 20);
+            label2.TabIndex = 4;
+            label2.Text = "End (ms)";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(10, 37);
+            label1.Name = "label1";
+            label1.Size = new Size(73, 20);
+            label1.TabIndex = 3;
+            label1.Text = "Start (ms)";
             // 
             // textFile
             // 
@@ -87,7 +145,7 @@
             buttonFile.Dock = DockStyle.Right;
             buttonFile.Location = new Point(623, 3);
             buttonFile.Name = "buttonFile";
-            buttonFile.Size = new Size(94, 31);
+            buttonFile.Size = new Size(94, 74);
             buttonFile.TabIndex = 1;
             buttonFile.Text = "Browse";
             buttonFile.UseVisualStyleBackColor = true;
@@ -96,7 +154,7 @@
             // volumeSlider
             // 
             volumeSlider.Dock = DockStyle.Bottom;
-            volumeSlider.Location = new Point(3, 34);
+            volumeSlider.Location = new Point(3, 77);
             volumeSlider.Name = "volumeSlider";
             volumeSlider.Size = new Size(714, 20);
             volumeSlider.TabIndex = 2;
@@ -108,7 +166,7 @@
             panelButtonProps.Controls.Add(panelText);
             panelButtonProps.Controls.Add(panelImage);
             panelButtonProps.Dock = DockStyle.Top;
-            panelButtonProps.Location = new Point(6, 63);
+            panelButtonProps.Location = new Point(6, 106);
             panelButtonProps.Name = "panelButtonProps";
             panelButtonProps.Size = new Size(720, 177);
             panelButtonProps.TabIndex = 1;
@@ -260,9 +318,9 @@
             panelButtons.Controls.Add(buttonCancel);
             panelButtons.Controls.Add(buttonOk);
             panelButtons.Dock = DockStyle.Fill;
-            panelButtons.Location = new Point(6, 240);
+            panelButtons.Location = new Point(6, 283);
             panelButtons.Name = "panelButtons";
-            panelButtons.Size = new Size(720, 37);
+            panelButtons.Size = new Size(720, 35);
             panelButtons.TabIndex = 2;
             // 
             // buttonDelete
@@ -302,14 +360,12 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(732, 283);
+            ClientSize = new Size(732, 324);
             Controls.Add(panelButtons);
             Controls.Add(panelButtonProps);
             Controls.Add(panelSound);
             MaximizeBox = false;
-            MaximumSize = new Size(750, 330);
             MinimizeBox = false;
-            MinimumSize = new Size(750, 330);
             Name = "ButtonConfigWindow";
             Padding = new Padding(6);
             ShowIcon = false;
@@ -318,6 +374,8 @@
             TopMost = true;
             panelSound.ResumeLayout(false);
             panelSound.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numberEnd).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numberStart).EndInit();
             panelButtonProps.ResumeLayout(false);
             panelColor.ResumeLayout(false);
             panelColor.PerformLayout();
@@ -357,5 +415,10 @@
         private Label labelColor;
         private TextBox textText;
         private Button buttonDelete;
+        private Label label2;
+        private Label label1;
+        private NumericUpDown numberEnd;
+        private NumericUpDown numberStart;
+        private Button button1;
     }
 }

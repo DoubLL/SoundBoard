@@ -1,4 +1,5 @@
 ﻿using SoundBoardForms.Data;
+using SoundBoardForms.Handlers;
 using SoundBoardForms.Providers;
 namespace SoundBoardForms.Windows
 {
@@ -26,6 +27,8 @@ namespace SoundBoardForms.Windows
             panelColor.BackColor = settings?.BackgroundColor ?? default;
             panelColor.ForeColor = settings?.TextColor ?? default;
             volumeSlider.Volume = settings?.Volume ?? default;
+            numberStart.Value = settings?.Start ?? 0;
+            numberEnd.Value = settings?.End ?? 0;
             if (string.IsNullOrEmpty(settings?.ImagePath))
                 pictureBox1.ImageLocation = settings?.ImagePath;
             Text = $"Button {i + 1} settings (x: {x + 1}, y: {y + 1})";
@@ -44,6 +47,8 @@ namespace SoundBoardForms.Windows
             Settings.BackgroundColor = panelColor.BackColor;
             Settings.TextColor = panelColor.ForeColor;
             Settings.Volume = volumeSlider.Volume;
+            Settings.Start = (int)numberStart.Value;
+            Settings.End = (int)numberEnd.Value;
             Saved.Invoke(this, e);
             Close();
         }
@@ -104,6 +109,10 @@ namespace SoundBoardForms.Windows
             {
                 panelColor.ForeColor = colorDialog.Color;
             }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AudioPlayer.Play(textFile.Text, volumeSlider.Volume, (int)numberStart.Value, (int)numberEnd.Value);
         }
     }
 }

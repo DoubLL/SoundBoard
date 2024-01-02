@@ -16,12 +16,18 @@ namespace SoundBoardForms.Handlers
             Output = new DirectSoundOut(OutputProvider.CurrentDevice.Guid);
             var reader = new AudioFileReader(path);
             reader.Volume = volume * SettingsProvider.GlobalSettings.Volume / 100;
+            reader.Position = Math.Min(((long)reader.WaveFormat.AverageBytesPerSecond) * start / 1000, reader.Length);
             Output.Init(reader);
             Output.PlaybackStopped += (sender, eventArgs) =>
             {
                 Output = null;
             };
             Output.Play();
+            if (end > -1)
+                Task.Delay(TimeSpan.FromMilliseconds(end)).ContinueWith((task) =>
+                {
+                    Stop();
+                });
         }
         public static void Stop()
         {
